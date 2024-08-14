@@ -1,0 +1,50 @@
+.bg-button {
+  background-color: #febd69;
+}
+
+button {
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    width 0.2s ease-in-out;
+  width: 50px; /* Hacer el botón un poco más ancho */
+}
+
+button:hover {
+  background-color: #d97706; /* Cambio de color al pasar el cursor */
+}
+
+button:active {
+  transform: scale(1.05); /* Agranda el botón al hacer clic */
+  width: 55px; /* Opción: También aumentar ligeramente el ancho al hacer clic */
+}
+
+/* Volver al tamaño original después de la animación */
+button:active {
+  animation: returnToSize 0.2s ease-in-out forwards;
+}
+
+@keyframes returnToSize {
+  100% {
+    transform: scale(1);
+    width: 50px; /* Volver al ancho original */
+  }
+}
+
+.relative .flex {
+  width: 100%;
+}
+
+.relative input {
+  border-start-start-radius: 10px;
+  border-right: none;
+}
+
+.relative button {
+  border-radius: 0 0.375rem 0.375rem 0;
+  border-left: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.5rem;
+  min-width: 40px; /* Asegura que el botón tenga un ancho mínimo */
+}

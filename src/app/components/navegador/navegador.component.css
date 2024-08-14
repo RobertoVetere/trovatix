@@ -1,0 +1,30 @@
+.gradient-text-animation {
+  background: linear-gradient(-55deg, #dc2626, #e73c7e, #0ea5e9, #6b21a8);
+  background-size: 200% 200%; /* Increase the background size */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 4s ease infinite;
+  display: inline-block; /* Necesario para aplicar background-clip correctamente */
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nav-container {
+  background-color: transparent;
+  border: none;
+}
