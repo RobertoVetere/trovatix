@@ -9,5 +9,8 @@ import { ProductCardComponent } from "../product-card/product-card.component";
   styleUrl: './top-search.component.css'
 })
 export class TopSearchComponent {
+buscarProductos() {
+  alert('¡Ups! Has llegado pronto, estamos trabajando en el buscador')
+}
 
 }
