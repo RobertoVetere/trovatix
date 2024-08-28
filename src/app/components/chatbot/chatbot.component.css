@@ -1,0 +1,36 @@
+/* Animaciones para la entrada y salida del chatbot */
+@keyframes openChat {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes closeChat {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Aplicar animación condicionalmente */
+.open-animation {
+  animation: openChat 0.3s ease-in-out forwards;
+}
+
+.close-animation {
+  animation: closeChat 0.3s ease-in-out forwards;
+}
+
+
+.chatBubble {
+  background-color: #7a69fe;
+}

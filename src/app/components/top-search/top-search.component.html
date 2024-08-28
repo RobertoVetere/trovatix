@@ -1,47 +1,187 @@
 <main class="min-h-screen py-32 antialiased bg-gray-100">
   <div class="flex flex-col items-center justify-center">
-    <div class="z-10 max-w-2xl px-5 xl:px-0 text-center">
-      <!-- Logo centrado sin margen adicional -->
+    <div class="z-10 max-w-3xl px-5 xl:px-0 text-center">
       <img src="logo.png" width="300" height="" class="mx-auto" />
-      <p class="mt-6 text-gray-500 md:text-xl">
+      <p class="mt-6 text-gray-500 md:text-xl hidden">
         Ingresa un producto para buscar y descubre los mejores resultados
         basados en nuestra inteligencia artificial.
       </p>
-      <div class="mt-6 flex justify-center w-full">
-        <div class="relative flex items-center w-full">
-          <input
-            type="text"
-            placeholder="Busca productos..."
-            class="w-full px-4 py-2 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-          (click)="buscarProductos()"
-            class="bg-button text-white p-2 border-l border-gray-300 rounded-r-lg shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all transform active:scale-105"
+
+      <!-- Botones de sugerencia encima del input -->
+      <div class="w-full mt-6 flex flex-wrap justify-center gap-4">
+        <button
+          (click)="applySuggestion('Mejores 2 televisores de 40 pulgadas 2024')"
+          class="bg-white relative flex w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="icon-md text-blue-500"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              viewBox="0 0 20 20"
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m4.5 17.5 3.069-3.118a2 2 0 0 1 2.783-.066L16.5 20"
+            ></path>
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 12h-.62a3 3 0 0 1-2.278-1.048l-4.204-4.904A3 3 0 0 0 9.62 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"
+            ></path>
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 5h-.62a3 3 0 0 0-2.278 1.048L14 8.5"
+            ></path>
+            <circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"></circle>
+            <path
               fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zm-7 4a7 7 0 1114 0A7 7 0 011 8z"
-                clip-rule="evenodd"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M12.293 12.293a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+              d="M18 14v-4a.5.5 0 0 1 .8-.4l2.667 2a.5.5 0 0 1 0 .8l-2.667 2a.5.5 0 0 1-.8-.4M18 7V3a.5.5 0 0 1 .8-.4l2.667 2a.5.5 0 0 1 0 .8l-2.667 2A.5.5 0 0 1 18 7"
+            ></path>
+          </svg>
+          <div class="line-clamp-3 max-w-full text-gray-600 break-word">
+            Mejores 2 televisores de 40 pulgadas 2024
+          </div>
+        </button>
+
+        <button
+          (click)="applySuggestion('Mejores regalos amiga entre 10 y 50 euros')"
+          class="bg-white relative flex w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="icon-md text-green-500"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M12 3C8.415 3 5.5 5.923 5.5 9.538A6.54 6.54 0 0 0 8.425 15h7.15A6.54 6.54 0 0 0 18.5 9.538C18.5 5.923 15.585 3 12 3m2.865 14h-5.73v1h5.73zm-1.133 3h-3.464a2 2 0 0 0 3.464 0m-5.606 0a4.002 4.002 0 0 0 7.748 0 1 1 0 0 0 .991-1v-2.46A8.54 8.54 0 0 0 20.5 9.539C20.5 4.828 16.7 1 12 1S3.5 4.828 3.5 9.538a8.54 8.54 0 0 0 3.635 7.003V19a1 1 0 0 0 .991 1"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <div class="line-clamp-3 max-w-full text-gray-600 break-word">
+            Mejores regalos amiga entre 10 y 50 euros
+          </div>
+        </button>
+
+        <button
+          (click)="
+            applySuggestion('Mejores 5 smartphones 2024 por menos de 600 euros')
+          "
+          class="bg-white relative flex w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="icon-md text-pink-500"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="2"
+              d="M3 6h7M3 10h4"
+            ></path>
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13.428 17.572 20.5 10.5a2.828 2.828 0 1 0-4-4l-7.072 7.072a2 2 0 0 0-.547 1.022L8 19l4.406-.881a2 2 0 0 0 1.022-.547"
+            ></path>
+          </svg>
+          <div class="line-clamp-3 max-w-full text-gray-600 break-word">
+            Mejores 5 smartphones 2024 por menos de 600 euros
+          </div>
+        </button>
+
+        <button
+          (click)="
+            applySuggestion('5 mejores regalos para hacer a un profesor')
+          "
+          class="bg-white relative flex w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="icon-md text-yellow-500"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M13.4544 4.10451C13.1689 3.95886 12.8309 3.95886 12.5455 4.10451L2.98609 8.98175L2.07715 7.20022L11.6365 2.32298C12.493 1.88603 13.5069 1.88603 14.3634 2.32298L23.9227 7.20022C24.7332 7.61373 25.091 8.44008 24.9999 9.2194V15C24.9999 15.5523 24.5522 16 23.9999 16C23.4477 16 22.9999 15.5523 22.9999 15V11.2156L20.9666 12.2115V16.3052C20.9666 17.409 20.3605 18.4237 19.3885 18.9468L14.4219 21.6203C13.5341 22.0981 12.4657 22.0981 11.578 21.6203L6.61135 18.9468C5.63941 18.4237 5.03328 17.409 5.03328 16.3052V12.2115L2.10635 10.7779C0.626202 10.0529 0.609039 7.94926 2.07715 7.20022L2.98608 8.98175L12.5601 13.671C12.8376 13.807 13.1623 13.807 13.4398 13.671L23 8.9885C23.0001 8.98394 23.0001 8.97938 23.0003 8.97483L13.4544 4.10451ZM7.03328 13.1911V16.3052C7.03328 16.6732 7.23532 17.0114 7.5593 17.1858L12.526 19.8592C12.8219 20.0185 13.178 20.0185 13.4739 19.8592L18.4406 17.1858C18.7646 17.0114 18.9666 16.6732 18.9666 16.3052V13.1911L14.3195 15.4672C13.4871 15.8749 12.5128 15.8749 11.6803 15.4672L7.03328 13.1911Z"
+              fill="currentColor"
+            ></path>
+            <circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"></circle>
+            <path
+              fill="currentColor"
+              d="M18 14v-4a.5.5 0 0 1 .8-.4l2.667 2a.5.5 0 0 1 0 .8l-2.667 2a.5.5 0 0 1-.8-.4M18 7V3a.5.5 0 0 1 .8-.4l2.667 2a.5.5 0 0 1 0 .8l-2.667 2A.5.5 0 0 1 18 7"
+            ></path>
+          </svg>
+          <div class="line-clamp-3 max-w-full text-gray-600 break-word">
+            5 mejores regalos para hacer a un profesor
+          </div>
+        </button>
       </div>
 
-      <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <app-product-card></app-product-card>
+      <form
+        [formGroup]="searchForm"
+        (ngSubmit)="searchProducts()"
+        class="mt-6 flex justify-center w-full bg-white py-5 border-gray-300 shadow-xl rounded-xl border-gray-300"
+      >
+        <div class="relative flex items-center w-full m-4">
+          <input
+            formControlName="query"
+            type="text"
+            placeholder="Encuentra algo nuevo con Trovatix..."
+            class="w-full px-4 py-3 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none border-none"
+          />
+          <button
+            type="submit"
+            [disabled]="!searchForm.get('query')?.value"
+            [ngClass]="{
+              'bg-gray-400 cursor-not-allowed': !searchForm.get('query')?.value,
+              'bg-button text-white': searchForm.get('query')?.value
+            }"
+            class="text-white p-2 w-20 border-l border-gray-300 rounded-r-lg shadow-lg hover:scale-105 focus:outline-none focus:ring-2 transition-transform transition-colors duration-100 ease-in-out"
+          >
+            enviar
+          </button>
+        </div>
+      </form>
+      <div
+        id="loaded-products-container"
+        class="p-4 hidden top-15 loaded-products-container bg-white relative flex flex-col items-center w-full max-w-3xl rounded-lg shadow-md"
+      >
+        <app-loading-overlay [loading]="loading"></app-loading-overlay>
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ng-container *ngFor="let product of products">
+            <app-review-card [product]="product"></app-review-card>
+          </ng-container>
+        </div>
       </div>
+      <app-seo-products-review class="hidden" [seoHtmlContent]="seoArticleHtml">
+        <h1>{{ tituloSeo }}</h1>
+      </app-seo-products-review>
     </div>
   </div>
 </main>
+<app-chatbot class="hidden"></app-chatbot>

@@ -1,0 +1,68 @@
+<!-- Card del producto con imagen adicional y botones -->
+<div
+  class="flex flex-col w-full max-w-sm bg-white rounded-lg shadow-lg overflow-hidden mb-6 border border-gray-300 hover:shadow-xl transition-shadow duration-300 ease-in-out"
+>
+  <!-- Imagen del producto -->
+  <a [href]="product.enlaceBusquedaProducto" target="_blank">
+    <img
+      [src]="product.googleSearchInfo?.linkImage"
+      [alt]="product.nombre"
+      class="w-full h-84 object-cover transition-transform transform hover:scale-105"
+    />
+  </a>
+
+  <!-- Información del producto -->
+  <div class="p-6 flex flex-col flex-grow">
+    <h2 class="text-2xl font-semibold text-gray-900">
+      {{ product.nombre }}
+    </h2>
+    <p class="mt-2 text-gray-800 text-base leading-relaxed">
+      {{ product.caracteristicas }}
+    </p>
+    <p class="mt-2 text-sm text-green-700">{{ product.puntosFuertes }}</p>
+    <p class="mt-1 text-sm text-red-600">{{ product.puntosDebiles }}</p>
+
+    <div class="mt-4 text-gray-600">
+      <span>Análisis IA {{ product.puntuacion }}/10</span>
+    </div>
+
+    <!-- Botones -->
+    <div class="mt-6 flex flex-col space-y-3">
+      <!-- Botón para abrir modal con resumen de reseñas -->
+      <button
+        (click)="openModal()"
+        class="text-blue-600 hover:text-blue-800 transition-colors duration-300 ease-in-out text-base font-medium"
+      >
+        Ver Resumen de Reseñas
+      </button>
+
+      <!-- Botón de Ver Producto -->
+      <a
+        [href]="product.googleSearchInfo?.contextLink"
+        class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out text-center"
+        target="_blank"
+      >
+        Ver Producto
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para mostrar resumen de reseñas -->
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+>
+  <div
+    class="bg-white rounded-lg shadow-lg p-8 w-11/12 md:w-1/2 lg:w-1/3 relative"
+  >
+    <button
+      (click)="closeModal()"
+      class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold"
+    >
+      &times;
+    </button>
+    <h3 class="text-2xl font-semibold mb-4">Resumen de Reseñas</h3>
+    <p class="text-gray-700">{{ product.resumenResenas }}</p>
+  </div>
+</div>

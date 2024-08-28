@@ -1,32 +1,9 @@
 .bg-button {
-  background-color: #febd69;
+  background-color: #7a69fe;
 }
 
-button {
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out,
-    width 0.2s ease-in-out;
-  width: 50px; /* Hacer el botón un poco más ancho */
-}
-
-button:hover {
-  background-color: #d97706; /* Cambio de color al pasar el cursor */
-}
-
-button:active {
-  transform: scale(1.05); /* Agranda el botón al hacer clic */
-  width: 55px; /* Opción: También aumentar ligeramente el ancho al hacer clic */
-}
-
-/* Volver al tamaño original después de la animación */
-button:active {
-  animation: returnToSize 0.2s ease-in-out forwards;
-}
-
-@keyframes returnToSize {
-  100% {
-    transform: scale(1);
-    width: 50px; /* Volver al ancho original */
-  }
+.bg-suggestions {
+  background-color: #f6feff;
 }
 
 .relative .flex {
@@ -38,13 +15,98 @@ button:active {
   border-right: none;
 }
 
-.relative button {
-  border-radius: 0 0.375rem 0.375rem 0;
-  border-left: 1px solid #d1d5db;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 0.5rem;
-  min-width: 40px; /* Asegura que el botón tenga un ancho mínimo */
+main {
+  margin: 0;
+  font-family: "Exo 2", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #ffeefc),
+    /* Gradiente de fondo */ url("https://v0.dev/v0-background.svg"); /* Imagen SVG sobre el gradiente */
+  background-attachment: fixed; /* La imagen y el gradiente permanecen fijos */
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el área */
+  background-position: center center; /* Centra la imagen y el gradiente */
+  background-repeat: no-repeat; /* Evita que la imagen y el gradiente se repitan */
+  background-blend-mode: multiply; /* Mezcla el gradiente y la imagen */
+}
+
+.bg-pastel-pink {
+  background-color: #f8c8d4;
+}
+
+.bg-pastel-pink-dark {
+  background-color: #f4a3b4;
+}
+
+.bg-pastel-blue {
+  background-color: #cce4f6;
+}
+
+.bg-pastel-blue-dark {
+  background-color: #99d1f7;
+}
+
+.bg-pastel-green {
+  background-color: #c4e1c1;
+}
+
+.bg-pastel-green-dark {
+  background-color: #9bd79a;
+}
+
+.bg-pastel-yellow {
+  background-color: #fef5b3;
+}
+
+.bg-pastel-yellow-dark {
+  background-color: #fef0a6;
+}
+
+.bg-gray-400 {
+  background-color: #d7d4d4; /* Color de fondo para el botón deshabilitado */
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
+}
+
+/* Añade esto a tu CSS global si no usas Tailwind CSS directamente */
+button {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+@keyframes openChat {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Clase para la animación de apertura */
+.open-animation {
+  animation: openChat 0.2s ease-in-out forwards; /* Animación de apertura */
+  animation-delay: 0s; /* Sin retraso para la primera animación */
+}
+
+/* Clase para la animación de latido */
+.heartbeat-animation {
+  animation: heartbeat 1s ease-in-out infinite; /* Animación de latido */
+  animation-delay: 0.6s; /* Retraso de 0.3s después de la primera animación */
+}
+
+.loaded-products-container {
+  border-top: none;
+  top: -15px;
 }

@@ -1,0 +1,12 @@
+.border-container {
+  border: 1px solid #e5e7eb; /* Gris claro */
+  border-radius: 8px;
+  max-width: 800px;
+  margin-bottom: 16px;
+}
+
+img {
+  object-fit: cover;
+}
+
+

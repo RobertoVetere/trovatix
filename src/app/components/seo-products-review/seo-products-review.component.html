@@ -1,0 +1,18 @@
+<!-- Botón que desplaza hacia el contenido SEO -->
+<button
+  *ngIf="seoHtmlContent && seoHtmlContent.trim() !== ''"
+  (click)="scrollToSeoContent()"
+  class="hidden seo-review-open-btn"
+>
+  Review
+</button>
+
+<!-- Contenedor del contenido SEO -->
+<div class="text-left" id="seoContent" #seoContent>
+  <div class="text-left">
+    <!-- Contenido HTML inyectado -->
+    <div [innerHTML]="seoHtmlContent" class="container-text-seo">
+      <h1>{{ tituloSeo }}</h1>
+    </div>
+  </div>
+</div>

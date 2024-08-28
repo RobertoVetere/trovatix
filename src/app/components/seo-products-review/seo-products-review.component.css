@@ -1,0 +1,27 @@
+/* Estilo para el botón que abre la ventana SEO Review */
+.seo-review-open-btn {
+  position: absolute;
+  top: 100px;
+  left: -5px;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-align: center;
+  background-color: #007bff; /* Cambia al color deseado */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.seo-review-open-btn:hover {
+  background-color: #0056b3; /* Cambia al color deseado para el hover */
+}
+
+/* Estilos generales para el contenido SEO */
+.text-left {
+  font-size: 1.1em;
+  line-height: 38px;
+  text-align: left;
+  text-rendering: optimizeLegibility;
+}

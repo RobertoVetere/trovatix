@@ -1,0 +1,102 @@
+<!-- Botón de Chatbot -->
+<div
+  [ngClass]="{ hidden: isOpen }"
+  class="fixed bottom-4 right-4 z-50 transition-opacity duration-300 ease-in-out"
+>
+  <button
+    (click)="toggleChat()"
+    class="chatBubble text-white rounded-full p-4 shadow-lg hover:bg-blue-600 transition-colors"
+    aria-label="Chat with us"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-8 h-8"
+      viewBox="0 0 35 35"
+      fill="currentColor"
+    >
+      <path
+        d="M31.51,28h-28a3.17,3.17,0,0,1-2.36-1.09A3.63,3.63,0,0,1,.28,24.1C1.48,14.76,8.88,7.72,17.5,7.72s16,7,17.22,16.38a3.63,3.63,0,0,1-.85,2.84A3.17,3.17,0,0,1,31.51,28Zm-14-17.81c-7.37,0-13.7,6.11-14.74,14.2a1.12,1.12,0,0,0,.25.87.64.64,0,0,0,.48.24h28a.64.64,0,0,0,.48-.24,1.12,1.12,0,0,0,.25-.87C31.2,16.33,24.87,10.22,17.5,10.22Z"
+      />
+      <path
+        d="M27.38,12.74a1.17,1.17,0,0,1-.6-.16,1.24,1.24,0,0,1-.5-1.69l1.77-3.27a1.25,1.25,0,1,1,2.2,1.2l-1.77,3.26A1.26,1.26,0,0,1,27.38,12.74Z"
+      />
+      <path
+        d="M7.68,12.74a1.26,1.26,0,0,1-1.1-.66L4.81,8.82A1.25,1.25,0,1,1,7,7.62l1.77,3.27a1.25,1.25,0,0,1-.5,1.69A1.2,1.2,0,0,1,7.68,12.74Z"
+      />
+      <path d="M10.79,20.7a1.88,1.88,0,0,0,0-3.75,1.88,1.88,0,0,0,0,3.75Z" />
+      <path d="M24.05,20.78a1.88,1.88,0,0,0,0-3.75,1.88,1.88,0,0,0,0,3.75Z" />
+    </svg>
+  </button>
+</div>
+
+<!-- Contenedor del Chatbot -->
+<div
+  [ngClass]="{
+    block: isOpen,
+    hidden: !isOpen
+  }"
+  [ngClass]="animationClass"
+  class="fixed bottom-0 right-0 w-full h-full bg-white shadow-lg border border-gray-300 rounded-lg z-50 transition-transform duration-300 ease-in-out transform"
+  [ngStyle]="{
+    bottom: isOpen ? '0' : '-100%',
+    transform: isOpen ? 'translateY(0)' : 'translateY(100%)'
+  }"
+>
+  <div class="relative h-full flex flex-col">
+    <!-- Botón de Cierre -->
+    <button
+      (click)="toggleChat()"
+      class="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors"
+      aria-label="Close chat"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-6 h-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <div class="w-full p-4 h-full flex flex-col">
+      <div
+        class="w-full flex-1 overflow-y-auto space-y-4"
+        id="messageContainer"
+      >
+        <!-- Mensajes del Chat -->
+        <div
+          *ngFor="let message of messages"
+          [ngClass]="{
+            'bg-blue-100 text-right self-end': message.isUser,
+            'bg-gray-200 text-left self-start flex items-center':
+              !message.isUser
+          }"
+          class="p-3 rounded-lg max-w-[95%] flex items-start"
+        >
+          <img
+            *ngIf="!message.isUser"
+            src="loader.webp"
+            alt="Chatbot Logo"
+            class="w-4 h-4 mr-2"
+          />
+          {{ message.text }}
+        </div>
+      </div>
+      <div class="mt-4">
+        <input
+          type="text"
+          [(ngModel)]="userMessage"
+          (keyup.enter)="sendMessage()"
+          placeholder="Envía un mensaje a Trovatix..."
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+        />
+      </div>
+    </div>
+  </div>
+</div>
