@@ -72,20 +72,16 @@ export class TopSearchComponent implements OnInit, OnDestroy {
     }
 
     this.errorMessage = null;
+    this.loading = true;
 
     
-     if (this.container) {
-    // Remueve cualquier animación anterior
-    this.container.classList.remove('hidden', 'heartbeat-animation', 'stop-heartbeat');
-
-    // Aplica la animación de apertura
-    this.container.classList.add('open-animation');
-
-    // Espera hasta que la animación 'openChat' termine, luego aplica la animación 'heartbeat'
+      if (this.container) {
+    this.container.classList.remove('hidden', 'expand-height-animation');
+    this.container!.classList.add('open-animation');
     setTimeout(() => {
-      this.container!.classList.remove('open-animation'); // Opcional: solo si deseas que la animación de apertura se aplique una vez
-      this.container!.classList.add('heartbeat-animation');
-    }, 200); // 200 ms o el tiempo de duración de 'openChat'
+      
+      this.container!.classList.add('expand-height-animation');
+    }, 0); // 200 ms o el tiempo de duración de 'openChat'
   }
 
     this.loaderService.show();
@@ -93,6 +89,7 @@ export class TopSearchComponent implements OnInit, OnDestroy {
       catchError(error => {
         console.error('Error al obtener los productos:', error);
         this.errorMessage = 'Error al obtener los productos. Inténtalo de nuevo más tarde.';
+        this.loading = false;
         this.loaderService.hide();
         return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío en caso de error
       })
@@ -101,16 +98,18 @@ export class TopSearchComponent implements OnInit, OnDestroy {
         this.products = response.products;
         this.seoArticleHtml = response.seoArticleHtml; // Mostrar la ventana SEO solo si hay contenido
         this.loaderService.hide();
-        this.container!.classList.remove('heartbeat-animation');
+        this.loading = false;
+        this.container!.classList.remove('expand-height-animation','open-animation');
       },
       error: (err: any) => {
         console.error('Error al obtener los productos:', err);
         this.errorMessage = 'Error al obtener los productos. Inténtalo de nuevo más tarde.';
         this.loaderService.hide();
-        this.container!.classList.remove('heartbeat-animation');
+        this.loading = false;
+        this.container!.classList.remove('expand-height-animation','open-animation');
+
       }
     });
-    this.container!.classList.remove('heartbeat-animation');
   }
 
   applySuggestion(suggestion: string): void {

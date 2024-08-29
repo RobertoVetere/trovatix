@@ -173,8 +173,17 @@
       >
         <app-loading-overlay [loading]="loading"></app-loading-overlay>
         <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ng-container *ngFor="let product of products">
-            <app-review-card [product]="product"></app-review-card>
+          <!-- Mostrar placeholders mientras carga -->
+          <ng-container *ngIf="loading">
+            <div class="placeholder-card" *ngFor="let n of [1, 2, 3, 4]"></div>
+            <!-- Añade tantos como necesites -->
+          </ng-container>
+
+          <!-- Mostrar productos reales cuando hayan cargado -->
+          <ng-container *ngIf="!loading">
+            <ng-container *ngFor="let product of products">
+              <app-review-card [product]="product"></app-review-card>
+            </ng-container>
           </ng-container>
         </div>
       </div>
