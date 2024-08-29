@@ -9,6 +9,7 @@ import lottie from 'lottie-web';
   styleUrl: './loader.component.css'
 })
 export class LoaderComponent implements OnInit{
+  
 
   constructor(private elementRef: ElementRef) {}
 
@@ -18,7 +19,7 @@ export class LoaderComponent implements OnInit{
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: 'loader-animation.json' // Ruta al archivo JSON de Lottie
+      path: 'assets/loader-animation.json' // Ruta al archivo JSON de Lottie
     });
   }
 
