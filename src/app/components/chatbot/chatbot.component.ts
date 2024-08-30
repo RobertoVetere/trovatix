@@ -26,7 +26,7 @@ export class ChatbotComponent implements OnInit {
     this.isOpen = !this.isOpen;
     this.animationClass = this.isOpen ? 'open-animation' : 'close-animation';
   }
-
+/*
   sendMessage() {
     if (this.userMessage.trim()) {
       const userMessageObj = { text: this.userMessage, isUser: true };
@@ -51,8 +51,9 @@ export class ChatbotComponent implements OnInit {
         }
       });
     }
+      
   }
-
+*/
   @HostListener('window:resize')
   onResize() {
     // Optional: Add resize logic if needed
