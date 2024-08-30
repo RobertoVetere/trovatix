@@ -19,7 +19,7 @@ main {
   margin: 0;
   font-family: "Exo 2", sans-serif;
   background: linear-gradient(135deg, #e0f7fa, #ffeefc),
-    /* Gradiente de fondo */ url("svg-background.svg"); /* Imagen SVG sobre el gradiente */
+    /* Gradiente de fondo */ url("public/svg-background.svg"); /* Imagen SVG sobre el gradiente */
   background-attachment: fixed; /* La imagen y el gradiente permanecen fijos */
   background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el área */
   background-position: center center; /* Centra la imagen y el gradiente */
