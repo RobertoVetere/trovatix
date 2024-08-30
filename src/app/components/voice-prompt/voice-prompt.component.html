@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+>
+  <div class="modal-content bg-white p-6 rounded-lg shadow-lg">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold">Voice Prompt</h3>
+      <button
+        type="button"
+        class="text-gray-600 hover:text-gray-900"
+        (click)="closeModal()"
+        aria-label="Close modal"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="icon-md"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <p class="mb-4">
+      Click the button below to start recording your voice prompt.
+    </p>
+    <div class="flex justify-center">
+      <button
+        class="record-button bg-green-500 text-white rounded-full shadow-md hover:bg-green-600 mb-2"
+        (click)="startRecording()"
+        [disabled]="isRecording"
+        aria-label="Start recording"
+        *ngIf="!isRecording"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          class="w-8 h-8"
+        >
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+      </button>
+      <button
+        class="stop-button bg-red-500 text-white shadow-md hover:bg-red-600"
+        (click)="stopRecording()"
+        [disabled]="!isRecording"
+        aria-label="Stop recording"
+        *ngIf="isRecording"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          class="w-8 h-8"
+        >
+          <rect width="18" height="18" x="3" y="3" rx="4" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

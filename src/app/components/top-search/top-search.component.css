@@ -1,30 +1,111 @@
+main {
+  margin: 0;
+  font-family: "Exo 2", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #ffeefc),
+    url("/svg-background.svg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
+button {
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+@keyframes openChat {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes expandHeight {
+  0% {
+    height: 15px;
+    transform: scaleY(1);
+  }
+  5% {
+    height: 150px;
+    transform: scaleY(1);
+  }
+  10% {
+    height: 170px;
+    transform: scaleY(1.05);
+  }
+  20% {
+    height: 150px;
+    transform: scaleY(1);
+  }
+  30% {
+    height: 180px;
+    transform: scaleY(1.03);
+  }
+  40% {
+    height: 165px;
+    transform: scaleY(1);
+  }
+  50% {
+    height: 200px;
+    transform: scaleY(1.05);
+  }
+  60% {
+    height: 180px;
+    transform: scaleY(1);
+  }
+  70% {
+    height: 220px;
+    transform: scaleY(1.03);
+  }
+  80% {
+    height: 200px;
+    transform: scaleY(1);
+  }
+  90% {
+    height: 240px;
+    transform: scaleY(1.05);
+  }
+  100% {
+    height: 300px;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  50% {
+    background-color: #c0c0c0;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
 .bg-button {
   background-color: #7a69fe;
 }
 
 .bg-suggestions {
   background-color: #f6feff;
-}
-
-.relative .flex {
-  width: 100%;
-}
-
-.relative input {
-  border-start-start-radius: 10px;
-  border-right: none;
-}
-
-main {
-  margin: 0;
-  font-family: "Exo 2", sans-serif;
-  background: linear-gradient(135deg, #e0f7fa, #ffeefc),
-    url("/svg-background.svg"); /* Ruta absoluta que parte de `public` */
-  background-attachment: fixed; /* La imagen y el gradiente permanecen fijos */
-  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el área */
-  background-position: center center; /* Centra la imagen y el gradiente */
-  background-repeat: no-repeat; /* Evita que la imagen y el gradiente se repitan */
-  background-blend-mode: multiply; /* Mezcla el gradiente y la imagen */
 }
 
 .bg-pastel-pink {
@@ -67,99 +148,27 @@ main {
   cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
 }
 
-/* Añade esto a tu CSS global si no usas Tailwind CSS directamente */
-button {
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-@keyframes openChat {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes heartbeat {
-  0% {
-    transform: scale(1);
-  }
-  60% {
-    transform: scale(1.03);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes expandHeight {
-  0% {
-    height: 15px; /* Altura inicial */
-    transform: scaleY(1);
-  }
-  5% {
-    height: 150px; /* Altura inicial */
-    transform: scaleY(1);
-  }
-  10% {
-    height: 170px; /* Ensancha ligeramente */
-    transform: scaleY(1.05); /* Crece un poco */
-  }
-  20% {
-    height: 150px; /* Vuelve a la altura inicial */
-    transform: scaleY(1);
-  }
-  30% {
-    height: 180px; /* Ensancha de nuevo */
-    transform: scaleY(1.03);
-  }
-  40% {
-    height: 165px; /* Contracción ligera */
-    transform: scaleY(1);
-  }
-  50% {
-    height: 200px; /* Expansión más significativa */
-    transform: scaleY(1.05);
-  }
-  60% {
-    height: 180px; /* Retrocede ligeramente */
-    transform: scaleY(1);
-  }
-  70% {
-    height: 220px; /* Se ensancha aún más */
-    transform: scaleY(1.03);
-  }
-  80% {
-    height: 200px; /* Contracción de nuevo */
-    transform: scaleY(1);
-  }
-  90% {
-    height: 240px; /* Última expansión antes del final */
-    transform: scaleY(1.05);
-  }
-  100% {
-    height: 300px; /* Altura máxima final */
-    transform: scaleY(1);
-  }
-}
-
-/* Clase para la animación de apertura */
 .open-animation {
-  animation: openChat 0.2s ease-in-out forwards; /* Animación de apertura */
-  animation-delay: 0s; /* Sin retraso para la primera animación */
+  animation: openChat 0.2s ease-in-out forwards;
+  animation-delay: 0s;
 }
 
-/* Clase para la animación de latido */
 .heartbeat-animation {
-  animation: heartbeat 1s ease-in-out infinite; /* Animación de latido */
+  animation: heartbeat 1s ease-in-out infinite;
 }
 
 .expand-height-animation {
   animation-iteration-count: infinite;
-  animation: expandHeight 10s ease-in-out forwards; /* Animación de expansión de altura */
+  animation: expandHeight 10s ease-in-out forwards;
+}
+
+.relative .flex {
+  width: 100%;
+}
+
+.relative input {
+  border-start-start-radius: 10px;
+  border-right: none;
 }
 
 .loaded-products-container {
@@ -171,19 +180,7 @@ button {
 .placeholder-card {
   background-color: #e0e0e0;
   border-radius: 4px;
-  height: 150px; /* Ajusta según sea necesario */
-  width: 100%; /* Ajusta según sea necesario */
+  height: 150px;
+  width: 100%;
   animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    background-color: #e0e0e0;
-  }
-  50% {
-    background-color: #c0c0c0;
-  }
-  100% {
-    background-color: #e0e0e0;
-  }
 }

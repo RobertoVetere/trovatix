@@ -12,12 +12,13 @@ export class PerplexityService {
 
   constructor(private http: HttpClient) { }
 
-  // Método para obtener los mejores productos con la query dada
-  getBestProducts(query: string): Observable<CombineResponse> {
+    getBestProducts(query: string, category: string): Observable<CombineResponse> {
     // Crear los parámetros de la consulta
-    const params = new HttpParams().set('query', query);
+    const params = new HttpParams()
+      .set('query', query)
+      .set('category', category);
 
-    // Hacer la solicitud HTTP POST con los parámetros de la consulta en la URL
-    return this.http.post<CombineResponse>(this.apiUrl, {}, { params });
-  }
+    // Hacer la solicitud HTTP POST con los parámetros de la consulta en las opciones
+      return this.http.post<CombineResponse>(this.apiUrl, {}, { params });
+    }
 }

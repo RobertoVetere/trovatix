@@ -150,6 +150,22 @@
         class="mt-6 flex justify-center w-full bg-white py-5 border-gray-300 shadow-xl rounded-xl border-gray-300"
       >
         <div class="relative flex items-center w-full m-4">
+          <!--Boton micro-->
+          <button
+            class="m-2 mt-2 max-w-8 bg-gray-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            (click)="toggleVoicePrompt($event)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              class="w-4 h-8"
+            >
+              <circle cx="12" cy="12" r="8" />
+            </svg>
+          </button>
           <input
             formControlName="query"
             type="text"
@@ -178,7 +194,6 @@
           <!-- Mostrar placeholders mientras carga -->
           <ng-container *ngIf="loading">
             <div class="placeholder-card" *ngFor="let n of [1, 2, 3, 4]"></div>
-            <!-- Añade tantos como necesites -->
           </ng-container>
 
           <!-- Mostrar productos reales cuando hayan cargado -->
@@ -195,4 +210,11 @@
     </div>
   </div>
 </main>
+
+<!-- Modal de grabación de voz -->
+<app-voice-prompt
+  [isModalOpen]="isVoicePromptOpen"
+  (close)="handleModalClose()"
+></app-voice-prompt>
+
 <app-chatbot class="hidden"></app-chatbot>

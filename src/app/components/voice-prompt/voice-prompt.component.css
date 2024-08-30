@@ -1,0 +1,30 @@
+/* Añade esto a tu archivo de estilos (voice-prompt.component.css) */
+
+.record-button,
+.stop-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+.record-button {
+  border-radius: 50%; /* Botón circular */
+}
+
+.stop-button {
+  border-radius: 8px; /* Botón cuadrado con bordes redondeados */
+}
+
+.record-button svg,
+.stop-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.record-button:disabled,
+.stop-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

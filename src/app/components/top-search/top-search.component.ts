@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { catchError, of, switchMap } from 'rxjs';
 import { PerplexityService } from '../../services/perplexity.service';
-import { OpenAiService } from '../../services/open-ai.service'; // Asegúrate de importar OpenAiService
+import { OpenAiService } from '../../services/open-ai.service';
 import { Product } from '../../interfaces/product.model';
 import { ReviewCardComponent } from '../review-card/review-card.component';
 import { CommonModule } from '@angular/common';
@@ -11,11 +11,14 @@ import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.comp
 import { SeoProductsReviewComponent } from '../seo-products-review/seo-products-review.component';
 import { CombineResponse } from '../../interfaces/combine-response.model';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
+import { VoicePromptComponent } from "../voice-prompt/voice-prompt.component";
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-top-search',
   standalone: true,
-  imports: [ChatbotComponent, ReviewCardComponent, CommonModule, ReactiveFormsModule, LoadingOverlayComponent, SeoProductsReviewComponent],
+  imports: [ChatbotComponent, ReviewCardComponent, CommonModule, ReactiveFormsModule, LoadingOverlayComponent, SeoProductsReviewComponent, VoicePromptComponent],
   templateUrl: './top-search.component.html',
   styleUrls: ['./top-search.component.css']
 })
@@ -29,12 +32,14 @@ export class TopSearchComponent implements OnInit, OnDestroy {
   tituloSeo: string = 'hola';
   container: HTMLElement | null = null;
   serviceMessage: string | null = null;
+  isVoicePromptOpen: boolean = false;
 
   constructor(
     private perplexityService: PerplexityService,
-    private openAiService: OpenAiService, // Inyectar OpenAiService
+    private openAiService: OpenAiService,
     private fb: FormBuilder,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private cdr: ChangeDetectorRef
   ) {
     this.searchForm = this.fb.group({
       query: ['', [Validators.required, Validators.minLength(3)]]
@@ -45,16 +50,26 @@ export class TopSearchComponent implements OnInit, OnDestroy {
     });
   }
 
+  
+  toggleVoicePrompt(event: Event): void {
+  console.log(this.isVoicePromptOpen);
+  event.preventDefault();
+  event.stopPropagation(); // Detiene la propagación del evento
+  this.isVoicePromptOpen = true;
+  console.log(this.isVoicePromptOpen);
+  this.cdr.detectChanges();
+}
+
+handleModalClose(): void {
+  this.isVoicePromptOpen = false;
+}
+
   ngOnDestroy(): void {
     // Implementar lógica de limpieza si es necesario
   }
 
   ngOnInit(): void {
     this.loaderService.hide();
-    this.searchForm = this.fb.group({
-      query: ['']
-    });
-
     this.container = document.getElementById('loaded-products-container');
   }
 
@@ -80,51 +95,48 @@ export class TopSearchComponent implements OnInit, OnDestroy {
       this.container.classList.add('open-animation');
       setTimeout(() => {
         this.container!.classList.add('expand-height-animation');
-      }, 0); // 200 ms o el tiempo de duración de 'openChat'
+      }, 0);
     }
 
     this.loaderService.show();
 
-   this.openAiService.validateMessage(query).pipe(
-  switchMap(validation => {
-    // Validación básica de la entrada
-    if (!this.isValidString(query)) {
-      this.serviceMessage = 'La búsqueda debe ser una cadena de texto válida.';
-      alert(this.serviceMessage);
-      return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío
-    }
+    this.openAiService.validateMessage(query).pipe(
+      switchMap(validation => {
+        if (!this.isValidString(query)) {
+          this.serviceMessage = 'La búsqueda debe ser una cadena de texto válida.';
+          alert(this.serviceMessage);
+          return of({ seoArticleHtml: '', products: [] });
+        }
 
-    // Proceder con la validación y las llamadas a las APIs
-    if (validation === 'PRODUCTO') {
-      console.log(validation);
-      return this.perplexityService.getBestProducts(query);
-    } else if (validation === 'SERVICIO') {
-      this.serviceMessage = 'Ups, nuestra IA está aprendiendo sobre servicios, pronto estarán disponibles'; // Mensaje de servicio
-      alert(this.serviceMessage);
-      return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío
-    } else if (validation === 'VIAJE') {
-      this.serviceMessage = 'Ups, nuestra IA está aprendiendo sobre viajes, pronto estarán disponibles'; // Mensaje de servicio
-      alert(this.serviceMessage);
-      return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío
-    } else if (validation === 'OTRO') {
-      this.serviceMessage = 'Prueba con otra búsqueda'; // Mensaje alternativo
-      alert(this.serviceMessage);
-      return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío
-    } else {
-      this.serviceMessage = 'Validación desconocida'; // Mensaje para validación desconocida
-      return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío
-    }
-  }),
-  catchError(error => {
-    console.error('Error en la búsqueda:', error);
-    this.serviceMessage = 'Hubo un problema con la búsqueda. Inténtalo de nuevo.';
-    alert(this.serviceMessage);
-    return of({ seoArticleHtml: '', products: [] }); // Devolver un objeto vacío en caso de error
-  })
+        if (validation === 'PRODUCTO') {
+          return this.perplexityService.getBestProducts(query, validation);
+        } else if (validation === 'SERVICIO') {
+          this.serviceMessage = 'Ups, nuestra IA está aprendiendo sobre servicios, pronto estarán disponibles';
+          alert(this.serviceMessage);
+          return of({ seoArticleHtml: '', products: [] });
+        } else if (validation === 'VIAJE') {
+          this.serviceMessage = 'Ups, nuestra IA está aprendiendo sobre viajes, pronto estarán disponibles';
+          alert(this.serviceMessage);
+          return of({ seoArticleHtml: '', products: [] });
+        } else if (validation === 'OTRO') {
+          this.serviceMessage = 'Prueba con otra búsqueda';
+          alert(this.serviceMessage);
+          return of({ seoArticleHtml: '', products: [] });
+        } else {
+          this.serviceMessage = 'Validación desconocida';
+          return of({ seoArticleHtml: '', products: [] });
+        }
+      }),
+      catchError(error => {
+        console.error('Error en la búsqueda:', error);
+        this.serviceMessage = 'Hubo un problema con la búsqueda. Inténtalo de nuevo.';
+        alert(this.serviceMessage);
+        return of({ seoArticleHtml: '', products: [] });
+      })
     ).subscribe({
       next: (response: CombineResponse) => {
         this.products = response.products;
-        this.seoArticleHtml = response.seoArticleHtml; // Mostrar la ventana SEO solo si hay contenido
+        this.seoArticleHtml = response.seoArticleHtml;
         this.loaderService.hide();
         this.loading = false;
         this.container?.classList.remove('expand-height-animation', 'open-animation');
@@ -140,12 +152,12 @@ export class TopSearchComponent implements OnInit, OnDestroy {
   }
 
   isValidString(input: any): boolean {
-  return typeof input === 'string' && input.trim() !== '';
-}
-
+    return typeof input === 'string' && input.trim() !== '';
+  }
 
   applySuggestion(suggestion: string): void {
     this.searchForm.patchValue({ query: suggestion });
     this.searchProducts();
   }
+
 }
