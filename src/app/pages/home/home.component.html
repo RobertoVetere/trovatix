@@ -1,1 +1,3 @@
-<app-top-search></app-top-search>
+<!-- Menú Lateral -->
+<app-aside-menu (menuStateChange)="onMenuStateChange($event)"></app-aside-menu>
+<app-top-search [isMenuOpen]="isMenuOpen"></app-top-search>

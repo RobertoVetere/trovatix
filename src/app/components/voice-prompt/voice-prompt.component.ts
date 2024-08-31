@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AssamblyaiService } from '../../services/assamblyai.service';
 
 @Component({
   selector: 'app-voice-prompt',
@@ -9,15 +10,17 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./voice-prompt.component.css']
 })
 export class VoicePromptComponent implements OnInit {
-  @Input() isModalOpen: boolean = false; // Aceptar un valor de input 
+  @Input() isModalOpen: boolean = false;
   @Output() close = new EventEmitter<void>();
+  @Output() transcriptReceived = new EventEmitter<string>(); // Emite la transcripción al componente padre
+
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: Blob[] = [];
   isRecording = false;
 
-  ngOnInit(): void {
-    // Puedes agregar lógica adicional si es necesario
-  }
+  constructor(private assamblyaiService: AssamblyaiService) {}
+
+  ngOnInit(): void {}
 
   closeModal(): void {
     this.isModalOpen = false;
@@ -34,11 +37,17 @@ export class VoicePromptComponent implements OnInit {
         this.mediaRecorder.onstop = () => {
           const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
           this.audioChunks = [];
-          const audioUrl = URL.createObjectURL(audioBlob);
-          console.log('Recording stopped. Audio URL:', audioUrl);
           
-          // Abre la URL en una nueva pestaña
-          window.open(audioUrl, '_blank');
+          // Enviar el archivo al servidor
+          this.assamblyaiService.uploadAudio(audioBlob).subscribe(
+            response => {
+              console.log('Audio uploaded successfully', response);
+              this.transcriptReceived.emit(response); // Emitir la transcripción al componente padre
+            },
+            error => {
+              console.error('Error uploading audio', error);
+            }
+          );
         };
         this.mediaRecorder.start();
         this.isRecording = true;

@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { catchError, of, switchMap } from 'rxjs';
 import { PerplexityService } from '../../services/perplexity.service';
 import { OpenAiService } from '../../services/open-ai.service';
 import { Product } from '../../interfaces/product.model';
-import { ReviewCardComponent } from '../review-card/review-card.component';
 import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../services/loader.service';
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component';
@@ -12,13 +11,22 @@ import { SeoProductsReviewComponent } from '../seo-products-review/seo-products-
 import { CombineResponse } from '../../interfaces/combine-response.model';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
 import { VoicePromptComponent } from "../voice-prompt/voice-prompt.component";
-import { ChangeDetectorRef } from '@angular/core';
-
+import { ReviewCardComponent } from '../review-card/review-card.component'; // Importa el componente
+import { AsideMenuComponent } from '../aside-menu/aside-menu.component';
 
 @Component({
   selector: 'app-top-search',
   standalone: true,
-  imports: [ChatbotComponent, ReviewCardComponent, CommonModule, ReactiveFormsModule, LoadingOverlayComponent, SeoProductsReviewComponent, VoicePromptComponent],
+  imports: [
+    CommonModule, // Importa CommonModule para usar directivas comunes
+    ReactiveFormsModule, // Importa ReactiveFormsModule para formularios reactivos
+    LoadingOverlayComponent, 
+    SeoProductsReviewComponent,
+    ChatbotComponent,
+    VoicePromptComponent,
+    ReviewCardComponent, // Asegúrate de importar el componente aquí
+    AsideMenuComponent
+  ],
   templateUrl: './top-search.component.html',
   styleUrls: ['./top-search.component.css']
 })
@@ -33,13 +41,12 @@ export class TopSearchComponent implements OnInit, OnDestroy {
   container: HTMLElement | null = null;
   serviceMessage: string | null = null;
   isVoicePromptOpen: boolean = false;
-
+  @Input() isMenuOpen: boolean = false;
   constructor(
     private perplexityService: PerplexityService,
     private openAiService: OpenAiService,
     private fb: FormBuilder,
-    private loaderService: LoaderService,
-    private cdr: ChangeDetectorRef
+    private loaderService: LoaderService
   ) {
     this.searchForm = this.fb.group({
       query: ['', [Validators.required, Validators.minLength(3)]]
@@ -50,27 +57,65 @@ export class TopSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  
-  toggleVoicePrompt(event: Event): void {
-  console.log(this.isVoicePromptOpen);
-  event.preventDefault();
-  event.stopPropagation(); // Detiene la propagación del evento
-  this.isVoicePromptOpen = true;
-  console.log(this.isVoicePromptOpen);
-  this.cdr.detectChanges();
-}
-
-handleModalClose(): void {
-  this.isVoicePromptOpen = false;
-}
-
-  ngOnDestroy(): void {
-    // Implementar lógica de limpieza si es necesario
-  }
-
   ngOnInit(): void {
     this.loaderService.hide();
     this.container = document.getElementById('loaded-products-container');
+
+    // Datos simulados
+    this.products = [
+      {
+        nombre: 'Producto 1',
+        enlaceBusquedaProducto: 'https://example.com/producto1',
+        caracteristicas: 'Características destacadas del producto 1.',
+        puntosFuertes: 'Alta durabilidad, buen rendimiento.',
+        puntosDebiles: 'Precio alto, tamaño grande.',
+        puntuacion: '8',
+        resumenResenas: 'Resumen de reseñas del producto 1.',
+        googleSearchInfo: {
+          title: 'Producto 1',
+          contextLink: 'https://example.com/producto1',
+          linkImage: 'https://via.placeholder.com/150',
+          thumbnailLink: 'https://via.placeholder.com/50'
+        },
+        seoArticleHtml: '<p>Artículo SEO para Producto 1.</p>'
+      },
+      {
+        nombre: 'Producto 2',
+        enlaceBusquedaProducto: 'https://example.com/producto2',
+        caracteristicas: 'Características destacadas del producto 2.',
+        puntosFuertes: 'Eficiencia energética, diseño compacto.',
+        puntosDebiles: 'Capacidad limitada, ruido.',
+        puntuacion: '7',
+        resumenResenas: 'Resumen de reseñas del producto 2.',
+        googleSearchInfo: {
+          title: 'Producto 2',
+          contextLink: 'https://example.com/producto2',
+          linkImage: 'https://via.placeholder.com/150',
+          thumbnailLink: 'https://via.placeholder.com/50'
+        },
+        seoArticleHtml: '<p>Artículo SEO para Producto 2.</p>'
+      },
+      {
+        nombre: 'Producto 3',
+        enlaceBusquedaProducto: 'https://example.com/producto3',
+        caracteristicas: 'Características destacadas del producto 3.',
+        puntosFuertes: 'Excelente relación calidad-precio, fácil de usar.',
+        puntosDebiles: 'Baja compatibilidad, limitadas funciones.',
+        puntuacion: '9',
+        resumenResenas: 'Resumen de reseñas del producto 3.',
+        googleSearchInfo: {
+          title: 'Producto 3',
+          contextLink: 'https://example.com/producto3',
+          linkImage: 'https://via.placeholder.com/150',
+          thumbnailLink: 'https://via.placeholder.com/50'
+        },
+        seoArticleHtml: '<p>Artículo SEO para Producto 3.</p>'
+      }
+    ];
+  }
+
+  ngOnDestroy(): void {
+    // Implementar lógica de limpieza si es necesario
   }
 
   searchProducts(): void {
@@ -159,5 +204,4 @@ handleModalClose(): void {
     this.searchForm.patchValue({ query: suggestion });
     this.searchProducts();
   }
-
 }

@@ -1,0 +1,87 @@
+<!-- Contenedor principal -->
+<div
+  class="max-w-xl w-full relative-container relative overflow-hidden z-40 flex"
+>
+  <button
+    (click)="toggleMenu()"
+    class="fixed mt-4 ml-4 w-8 h-8 bg-none hover:bg-gray-900 hover:text-gray-300 text-gray-400 border-2 border-gray-500 rounded flex items-center justify-center z-40 transition-transform duration-100 ease-in-out active:scale-110 focus:outline-none"
+    aria-label="Toggle Menu"
+  >
+    <!-- Ícono de menú (hamburguesa) -->
+    <svg
+      *ngIf="isMenuOpen"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="4" y1="6" x2="20" y2="6"></line>
+      <line x1="4" y1="12" x2="20" y2="12"></line>
+      <line x1="4" y1="18" x2="20" y2="18"></line>
+    </svg>
+
+    <!-- Ícono de cruz -->
+    <svg
+      *ngIf="!isMenuOpen"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Menú Lateral -->
+  <aside
+    id="aside-menu"
+    class="fixed top-0 left-0 h-screen w-64 bg-gradient border-gray-200 border-2 text-gray-500 overflow-y-auto transition-transform transform -translate-x-full"
+  >
+    <div class="p-4">
+      <h2 class="pt-16 text-xl mb-4">Conversaciones</h2>
+      <!-- Lista de conversaciones -->
+      <h3 class="font-bold text-gray-900">Hoy</h3>
+      <ul>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 1
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 2
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 3
+        </li>
+      </ul>
+      <h3 class="font-bold text-gray-900">Ayer</h3>
+      <ul>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 1
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 2
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 3
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 1
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 2
+        </li>
+        <li class="py-2 px-4 hover:text-gray-900 cursor-pointer">
+          Conversación 3
+        </li>
+      </ul>
+    </div>
+  </aside>
+</div>

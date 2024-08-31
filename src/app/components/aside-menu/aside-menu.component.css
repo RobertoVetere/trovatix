@@ -1,0 +1,25 @@
+/* Menú lateral oculto fuera de la vista */
+#aside-menu {
+  transform: translateX(0);
+  transition: transform 0.1s ease-in-out;
+}
+
+/* Cuando el menú está activo y visible */
+#aside-menu.open {
+  transform: translateX(-100%);
+}
+
+/* Contenedor principal para que el contenido no se vea afectado por el menú */
+.relative-container {
+  position: relative;
+}
+
+.bg-gradient {
+  background-color: #e0f7fa;
+}
+
+@media (max-width: 768px) {
+  aside {
+    width: 100%;
+  }
+}

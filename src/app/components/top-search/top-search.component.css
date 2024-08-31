@@ -2,12 +2,28 @@ main {
   margin: 0;
   font-family: "Exo 2", sans-serif;
   background: linear-gradient(135deg, #e0f7fa, #ffeefc),
-    url("/svg-background.svg");
+    url("https://v0.dev/v0-background.svg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
+}
+
+/* Estilo para dispositivos móviles */
+@media (max-width: 768px) {
+  main {
+    background: linear-gradient(
+      135deg,
+      #e0f7fa,
+      #ffeefc
+    ); /* Eliminamos el SVG */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+  }
 }
 
 button {
@@ -42,48 +58,24 @@ button {
     height: 15px;
     transform: scaleY(1);
   }
-  5% {
-    height: 150px;
-    transform: scaleY(1);
-  }
-  10% {
-    height: 170px;
-    transform: scaleY(1.05);
-  }
   20% {
-    height: 150px;
-    transform: scaleY(1);
-  }
-  30% {
-    height: 180px;
-    transform: scaleY(1.03);
+    height: 40px;
+    transform: scaleY(1.1);
   }
   40% {
-    height: 165px;
+    height: 60px;
     transform: scaleY(1);
-  }
-  50% {
-    height: 200px;
-    transform: scaleY(1.05);
   }
   60% {
-    height: 180px;
-    transform: scaleY(1);
-  }
-  70% {
-    height: 220px;
-    transform: scaleY(1.03);
+    height: 80px;
+    transform: scaleY(1.1);
   }
   80% {
-    height: 200px;
+    height: 60px;
     transform: scaleY(1);
   }
-  90% {
-    height: 240px;
-    transform: scaleY(1.05);
-  }
   100% {
-    height: 300px;
+    height: 90px;
     transform: scaleY(1);
   }
 }
@@ -108,38 +100,6 @@ button {
   background-color: #f6feff;
 }
 
-.bg-pastel-pink {
-  background-color: #f8c8d4;
-}
-
-.bg-pastel-pink-dark {
-  background-color: #f4a3b4;
-}
-
-.bg-pastel-blue {
-  background-color: #cce4f6;
-}
-
-.bg-pastel-blue-dark {
-  background-color: #99d1f7;
-}
-
-.bg-pastel-green {
-  background-color: #c4e1c1;
-}
-
-.bg-pastel-green-dark {
-  background-color: #9bd79a;
-}
-
-.bg-pastel-yellow {
-  background-color: #fef5b3;
-}
-
-.bg-pastel-yellow-dark {
-  background-color: #fef0a6;
-}
-
 .bg-gray-400 {
   background-color: #d7d4d4; /* Color de fondo para el botón deshabilitado */
 }
@@ -159,7 +119,7 @@ button {
 
 .expand-height-animation {
   animation-iteration-count: infinite;
-  animation: expandHeight 10s ease-in-out forwards;
+  animation: expandHeight 5s ease-in-out forwards;
 }
 
 .relative .flex {
@@ -174,7 +134,7 @@ button {
 .loaded-products-container {
   border-top: none;
   border-bottom: none;
-  top: -15px;
+  margin-bottom: 50px;
 }
 
 .placeholder-card {
@@ -183,4 +143,55 @@ button {
   height: 150px;
   width: 100%;
   animation: pulse 1.5s infinite;
+}
+
+.z-index-form {
+  z-index: 9999999;
+}
+
+.form-container-width {
+  min-width: 55%;
+}
+
+@media (max-width: 1280px) {
+  .form-container-width {
+    width: 75%;
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .form-container-width {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+div#loaded-products-container {
+  background-color: transparent;
+}
+
+.cards-container-block.mt-10.grid.grid-cols-1.md\:grid-cols-2.gap-6 {
+  display: block;
+}
+
+/* Clase base para la transición y la transformación inicial */
+.transform-main {
+  transform: translateX(16em);
+  transition: transform 0.1s ease-in-out;
+  overflow-x: hidden;
+  width: calc(100% - 16em);
+}
+
+/* Estilo para dispositivos móviles */
+@media (max-width: 768px) {
+  .transform-main {
+    transform: translateX(-16em);
+    transition: transform 0.1s ease-in-out;
+    overflow-x: hidden;
+  }
+}
+
+.bg-cards {
+  background-color: #eaf2f4;
 }

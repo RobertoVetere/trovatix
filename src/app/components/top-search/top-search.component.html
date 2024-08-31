@@ -1,7 +1,10 @@
-<main class="min-h-screen py-32 antialiased bg-gray-100">
-  <div class="flex flex-col items-center justify-center">
+<main
+  [ngClass]="{ 'transform-main': !isMenuOpen }"
+  class="min-h-screen py-16 antialiased bg-gray-100"
+>
+  <div class="flex-grow flex flex-col items-center justify-center px-5 xl:px-0">
     <div class="z-10 max-w-3xl px-5 xl:px-0 text-center">
-      <img src="logo.png" width="300" height="" class="mx-auto" />
+      <img src="logo-ai.webp" width="300" height="" class="mx-auto" />
       <p class="mt-6 text-gray-500 md:text-xl hidden">
         Ingresa un producto para buscar y descubre los mejores resultados
         basados en nuestra inteligencia artificial.
@@ -15,7 +18,7 @@
               'Un libro de aventura y romance para leer en la playa...'
             )
           "
-          class="bg-white relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="bg-cards relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-md transition-transform hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +62,7 @@
 
         <button
           (click)="applySuggestion('Mejores regalos amiga entre 10 y 50 euros')"
-          class="bg-white relative hidden sm:flex w-1/2 sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+          class="bg-cards relative hidden sm:flex w-1/2 sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-md transition-transform hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +86,7 @@
 
         <button
           (click)="applySuggestion('5 smartphones 2024 por menos de 600 euros')"
-          class="bg-white relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          class="bg-cards relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-md transition-transform hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +119,7 @@
           (click)="
             applySuggestion('5 mejores regalos para hacer a un profesor')
           "
-          class="bg-white relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-xs transition-transform hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          class="bg-cards relative flex w-full sm:w-40 flex-col gap-2 rounded-2xl border border-gray-300 px-3 pb-4 pt-3 text-start text-sm shadow-md transition-transform hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -144,16 +147,57 @@
         </button>
       </div>
 
+      <div
+        id="loaded-products-container"
+        class="p-4 top-15 loaded-products-container bg-white relative flex flex-col items-center w-full max-w-3xl rounded-lg shadow-md"
+      >
+        <!-- Contenedor del logo y el loader -->
+        <div class="absolute top-4 left-4 flex items-center space-x-4 p-2">
+          <!-- Contenedor circular para el logo -->
+          <img
+            src="favicon-ai.webp"
+            alt="Logo de la Aplicación"
+            class="w-8 h-8"
+          />
+          <!-- Loader de carga (puede ser cualquier componente o animación personalizada) -->
+          <app-loading-overlay [loading]="loading"></app-loading-overlay>
+        </div>
+
+        <!-- Contenedor para los productos -->
+        <div
+          class="cards-container-block mt-10 py-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+        >
+          <!-- Mostrar productos reales cuando hayan cargado -->
+          <ng-container *ngIf="!loading">
+            <ng-container *ngFor="let product of products">
+              <app-review-card [product]="product"></app-review-card>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <app-seo-products-review class="hidden" [seoHtmlContent]="seoArticleHtml">
+        <h1>{{ tituloSeo }}</h1>
+      </app-seo-products-review>
+    </div>
+  </div>
+  <!-- Contenedor del formulario de búsqueda -->
+</main>
+<div
+  [ngClass]="{ 'transform-main': !isMenuOpen }"
+  class="fixed bottom-0 w-full container-bottom flex flex-col items-center justify-center border-b border-gray-200 backdrop-blur-xl transition-all z-30"
+>
+  <div class="form-container-width">
+    <div class="z-10 w-full px-5 xl:px-0 text-center">
       <form
+        id="searchForm"
         [formGroup]="searchForm"
         (ngSubmit)="searchProducts()"
-        class="mt-6 flex justify-center w-full bg-white py-5 border-gray-300 shadow-xl rounded-xl border-gray-300"
+        class="mb-1 py-4 px-4 rounded-xl flex justify-center items-center mx-auto z-20"
       >
-        <div class="relative flex items-center w-full m-4">
-          <!--Boton micro-->
+        <div class="relative flex items-center w-full">
           <button
-            class="m-2 mt-2 max-w-8 bg-gray-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            (click)="toggleVoicePrompt($event)"
+            class="m-2 mt-2 max-w-8 bg-gray-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-600 hover:scale-105 focus:outline-none focus:ring-2 transition-transform transition-colors duration-100 ease-in-out hidden"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +214,7 @@
             formControlName="query"
             type="text"
             placeholder="Encuentra algo nuevo con Trovatix..."
-            class="w-full px-4 py-3 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none border-none"
+            class="bg-gray-900 text-white shadow-md border-2 border-gray-200 w-full px-4 py-4 rounded-full focus:outline-none"
           />
           <button
             type="submit"
@@ -179,42 +223,13 @@
               'bg-gray-400 cursor-not-allowed': !searchForm.get('query')?.value,
               'bg-button text-white': searchForm.get('query')?.value
             }"
-            class="text-white p-2 w-20 border-l border-gray-300 rounded-r-lg shadow-lg hover:scale-105 focus:outline-none focus:ring-2 transition-transform transition-colors duration-100 ease-in-out"
+            class="absolute right-2 text-white p-2 w-20 rounded-full shadow-lg hover:scale-105 focus:outline-none focus:ring-2 transition-transform transition-colors duration-100 ease-in-out"
           >
-            enviar
+            Enviar
           </button>
         </div>
       </form>
-      <div
-        id="loaded-products-container"
-        class="p-4 hidden top-15 loaded-products-container bg-white relative flex flex-col items-center w-full max-w-3xl rounded-lg shadow-md"
-      >
-        <app-loading-overlay [loading]="loading"></app-loading-overlay>
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 z-10">
-          <!-- Mostrar placeholders mientras carga -->
-          <ng-container *ngIf="loading">
-            <div class="placeholder-card" *ngFor="let n of [1, 2, 3, 4]"></div>
-          </ng-container>
-
-          <!-- Mostrar productos reales cuando hayan cargado -->
-          <ng-container *ngIf="!loading">
-            <ng-container *ngFor="let product of products">
-              <app-review-card [product]="product"></app-review-card>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-      <app-seo-products-review class="hidden" [seoHtmlContent]="seoArticleHtml">
-        <h1>{{ tituloSeo }}</h1>
-      </app-seo-products-review>
     </div>
   </div>
-</main>
-
-<!-- Modal de grabación de voz -->
-<app-voice-prompt
-  [isModalOpen]="isVoicePromptOpen"
-  (close)="handleModalClose()"
-></app-voice-prompt>
-
+</div>
 <app-chatbot class="hidden"></app-chatbot>

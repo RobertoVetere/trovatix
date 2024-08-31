@@ -23,4 +23,17 @@ export class ReviewCardComponent {
     this.isModalOpen = false;
   }
 
+  toggleImageSize(event: Event) {
+  const image = event.target as HTMLImageElement;
+  if (image.classList.contains('enlarged')) {
+    image.classList.remove('enlarged');
+    image.style.maxWidth = '100%';
+    image.style.maxHeight = '100%';
+  } else {
+    image.classList.add('enlarged');
+    image.style.maxWidth = 'none';
+    image.style.maxHeight = 'none';
+  }
+}
+
 }
